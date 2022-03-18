@@ -1,6 +1,7 @@
 #include <cmath>
 
 #include "Model_CPU_naive.hpp"
+#include <iostream>
 
 Model_CPU_naive
 ::Model_CPU_naive(const Initstate& initstate, Particles& particles)

@@ -5,9 +5,17 @@
 
 #include "../Model_CPU.hpp"
 
-#include <xsimd/xsimd.hpp>
-namespace xs = xsimd;
-using b_type = xs::batch<float, xs::avx2>;
+struct Quadrant
+{
+    int bodyId;
+    float centerOfMass[3]; 
+    float totalMass;
+    struct Quadrant* children[8];
+    float rect[6];
+    char type;
+};
+
+
 
 class Model_CPU_fast : public Model_CPU
 {
@@ -18,10 +26,22 @@ public:
 
     virtual void step();
 
-    void computeAcceleration(int start, int end);
+    Quadrant * newQuadrant(float rect[6]);
 
-    void computeAccelerationVectorized(b_type rposx_i, b_type rposy_i,
-     b_type rposz_i, b_type raccx_i, b_type raccy_i, b_type raccz_i);
+    void insertIntoNode(int bodyId, Quadrant *quad);
+
+    bool isBodyInQuad(int bodyId, Quadrant *quad);
+
+    void updateCoM(Quadrant *quad); // Update quadrant center of mass
+
+    void subdivide(Quadrant *quad);
+
+    void calculateAcceleration(int bodyId, Quadrant * quad, float theta);
+
+    void b2bAcc(int i, int j);
+
+    void b2nAcc(int i, Quadrant * quad);
+
 };
 #endif // MODEL_CPU_FAST_HPP_
 
