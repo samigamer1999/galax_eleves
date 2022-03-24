@@ -41,9 +41,13 @@ void Model_CPU_naive
 				accelerationsx[i] += diffx * dij * initstate.masses[j];
 				accelerationsy[i] += diffy * dij * initstate.masses[j];
 				accelerationsz[i] += diffz * dij * initstate.masses[j];
+				
 			}
 		}
 	}
+
+	
+    
 
 	for (int i = 0; i < n_particles; i++)
 	{

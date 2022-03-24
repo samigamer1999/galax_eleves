@@ -40,7 +40,17 @@ public:
 
     void b2bAcc(int i, int j);
 
-    void b2nAcc(int i, Quadrant * quad);
+    void b2nAcc(int i, Quadrant * quad, float dij, float diffx, float diffy, float diffz);
+
+    Quadrant * root;
+
+    int updateCounter = 0;
+
+    int countroots(Quadrant * quad);
+
+    std::vector<int> bodies;
+
+    bool isOutlier(int bodyId, Quadrant * root, float theta);    
 
 };
 #endif // MODEL_CPU_FAST_HPP_
